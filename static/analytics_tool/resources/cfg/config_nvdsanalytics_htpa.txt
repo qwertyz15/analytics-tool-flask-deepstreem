@@ -1,0 +1,67 @@
+# Copyright (c) 2020 NVIDIA Corporation.  All rights reserved.
+#
+# NVIDIA Corporation and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA Corporation is strictly prohibited.
+
+# The values in the config file are overridden by values set through GObject
+# properties.
+
+[property]
+#Width height used for configuration to which below configs are configured
+enable=1
+config-width=1920
+config-height=1080
+display-font-size=20
+
+[line-crossing-stream-0]
+enable=1
+line-crossing-Exit=1325;597;1340;625;901;686;1689;554
+line-crossing-Entry=478;565;444;584;162;512;901;673
+class-id=2;3;5;7
+mode=balanced
+extend=0
+enable=1
+
+[line-crossing-stream-1]
+enable=1
+line-crossing-Exit=1281;576;1310;586;1226;667;1390;472
+line-crossing-Entry=488;714;488;735;122;743;910;705
+class-id=2;3;5;7
+mode=balanced
+extend=0
+
+enable=1
+
+[line-crossing-stream-2]
+enable=1
+line-crossing-Exit=396;501;425;493;366;402;478;633
+line-crossing-Entry=1011;705;1045;693;828;555;1278;866
+class-id=2;3;5;7
+mode=balanced
+extend=0
+
+enable=1
+
+[line-crossing-stream-3]
+enable=1
+line-crossing-Entry=783;563;809;537;410;482;1036;586
+class-id=2;3;5;7
+mode=balanced
+extend=0
+
+enable=1
+
+line-crossing-Exit=1399;531;1420;559;1038;618;1755;472
+
+[line-crossing-stream-4]
+enable=1
+line-crossing-Exit=1295;593;1304;616;1112;624;1458;597
+line-crossing-Entry=410;380;444;372;358;325;493;431
+class-id=0
+mode=balanced
+extend=0
+
+enable=1

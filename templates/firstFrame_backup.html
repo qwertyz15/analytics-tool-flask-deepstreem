@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .list-container {
+            margin: 50px;
+            height: 100vh;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            display: flex;
+        }
+
+        .applyBtn,
+        .goBackBtn {
+            background-color: gray;
+            color: white;
+            width: 100px;
+            height: 35px;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            margin: 10px;
+        }
+
+        .goBackBtn:hover {
+            background-color: rgb(19, 18, 18);
+        }
+
+        .listItem {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="list-container">
+        <div class="nav">
+
+            <div>
+                <h2 id="videoId">{{videoClicked}}</h2>
+            </div>
+            <!-- <button class="goBackBtn" onclick="location.href='http://localhost:5000/';">Go Back</button> -->
+            <div class="btn">
+                <div>
+                    <form action="/analyze/%22{{videoClicked}}%22" method="post">
+                        <button class="applyBtn" onclick="location.href='/';" type="submit" name="submit_button"
+                            value="analyze">Apply</button>
+                    </form>
+                </div>
+                <div>
+                    <button class="goBackBtn" onclick="location.href='/';" type="submit" name="submit_button"
+                        value="goback">Go Back</button>
+                </div>
+
+                <!-- <input type="submit" name="submit_button" value="Do Something">
+                <input type="submit" name="submit_button" value="Do Something Else"> -->
+            </div>
+
+        </div>
+        <ol id="parent-list">
+            <!-- {%for file in filelist%}
+            <li class="listItem" id={{file}}>{{file}}</li>
+            {%endfor%} -->
+        </ol>
+        <!-- <img src="../static/frames/first_frame.jpg" alt="no image"> -->
+        <img src="../static/frames/{{image_path}}" alt="no image">
+    </div>
+</body>
+<script>
+    const videoFile = document.getElementById("videoId").innerHTML;
+    
+    if (videoFile) {
+        console.log("Video file name: ", videoFile);
+        const request = new XMLHttpRequest();
+        request.open('POST', `/analyze/${JSON.stringify(videoFile)}`)
+        request.send()
+
+        }
+</script>
+
+</html>

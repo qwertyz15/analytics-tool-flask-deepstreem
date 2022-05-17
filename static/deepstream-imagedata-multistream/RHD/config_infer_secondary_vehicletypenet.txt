@@ -1,0 +1,58 @@
+################################################################################
+# Copyright (c) 2020, NVIDIA CORPORATION. All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+# DEALINGS IN THE SOFTWARE.
+
+
+
+
+#{"bigbus": 0, "car": 1, "motorbike" : 2, "heavymidtruck": 3, "lighttruck": 4, "microbus": 5, "minibus": 6, "threewheeler": 7, "utility": 8}
+
+#{"bigbus": 0, "car": 1, , "motorbike" : 2, "heavytruck": 3, "lighttruck": 4, "microbus": 5, "midtruck": 6, "minibus": 7, "threewheeler": 8, "utility": 9}
+################################################################################
+
+[property]
+gpu-id=0
+net-scale-factor=1
+offsets=124;117;104
+tlt-model-key=tlt_encode
+tlt-encoded-model=RHD_9class_model_2022.etlt
+labelfile-path=labels_RHD.txt
+#int8-calib-file=../../models/tlt_pretrained_models/vehicletypenet/vehicletypenet_int8.txt
+#model-engine-file=/home/sigmind/WC-Highway-Analytics/.cfg/deepstream-app/RHD/final_model-newHope_150.etlt_b1_gpu0_fp32.engine
+input-dims=3;224;224;0
+uff-input-blob-name=input_1
+batch-size=1
+model-color-format=0  # 0: RGB 1: BGR 2: GRAY
+#is-classifier=1
+##1 Primary 2 Secondary
+process-mode=2
+## 0=FP32, 1=INT8, 2=FP16 mode
+network-mode=0
+#  0: Detector 1: Classifier 2: Segmentation
+network-type=1
+interval=0
+gie-unique-id=5
+uff-input-dims=3;224;224;0
+operate-on-class-ids=2;3;5;7
+#input-object-min-width=5
+#input-object-min-height=5
+output-blob-names=predictions/Softmax
+classifier-threshold=0.51
+classifier-async-mode=0

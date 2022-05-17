@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/firstFrame1.css">
+</head>
+
+<body id="body">
+    <p id="label">LINE DRAWING APP</p>
+    <div id="metadata2">
+        <div class="container">
+            <div>
+                <p id="option">Please select an option.</p>
+            </div>
+            <div id="metadata">
+                <div>
+                    <p id="meta">(X, Y): <span id="x-value">-</span>,<span id="y-value">-</span></p>
+                    <p id="meta" hidden>(X, Y): <span id="x1-value">-</span>,<span id="y1-value">-</span></p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div>
+            <div class="Rads">
+
+                <div class="Rad">
+                    <input type="radio" id="Entry-Line" name="drawing" value="Entry-Line" checked>
+                    <label for="Entry-Line">Entry-Line <span id="Entry-Line-span"> - - </span></label>
+                </div>
+                <div class="Rad">
+                    <input type="radio" id="Entry-Dir" name="drawing" value="Entry-Dir">
+                    <label for="Entry-Dir">Entry-Dir &nbsp; <span id="Entry-Dir-span"> - - </span></label>
+                </div>
+                <div class="Rad">
+                    <input type="radio" id="Exit-Line" name="drawing" value="Exit-Line">
+                    <label for="Exit-Line">Exit-Line &nbsp; <span id="Exit-Line-span"> - - </span></label>
+                </div>
+                <div class="Rad">
+                    <input type="radio" id="Exit-Dir" name="drawing" value="Exit-Dir">
+                    <label for="Exit-Dir">Exit-Dir &nbsp;&nbsp;&nbsp; <span id="Exit-Dir-span"> - - </span></label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <br>
+    <div class="list-container">
+        <div class="nav">
+
+            <div>
+                <h2 id="videoId">{{videoClicked}}</h2>
+            </div>
+            <!-- <button class="goBackBtn" onclick="location.href='http://localhost:5000/';">Go Back</button> -->
+            <div class="btn">
+                <div>
+                    <!-- <form action="/analyze/%22{{videoClicked}}%22" method="post"> -->
+                    <!-- <form method="post"></form> -->
+                        <button id="applyButton" class="applyBtn"  type="submit" name="submit_button"
+                            value="analyze">Apply</button>
+                    <!-- </form> -->
+                </div>
+                <div>
+                    <button class="goBackBtn" onclick="location.href='/';" type="submit" name="submit_button"
+                        value="goback">Go Back</button>
+                </div>
+
+                <!-- <input type="submit" name="submit_button" value="Do Something">
+                <input type="submit" name="submit_button" value="Do Something Else"> -->
+            </div>
+
+        </div>
+        <!-- <img src="../static/frames/first_frame.jpg" alt="no image"> -->
+        <img hidden id="scream" src="../static/frames/{{image_path}}" alt="The Scream">
+        <button id="undo">undo</button>
+        <button id="redo">redo</button>
+        <button id="clear">clear</button>
+        <br>
+    
+        <canvas id="myCanvas" style="border:1px solid #d3d3d3;">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+    </div>
+</body>
+<script src="../static/js/firstFrame1.js"></script>
+<script src="../static/js/firstFrame2.js"></script>
+
+</html>

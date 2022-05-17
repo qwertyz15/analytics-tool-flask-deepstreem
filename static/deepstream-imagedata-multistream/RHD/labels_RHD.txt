@@ -1,0 +1,1 @@
+bigbus;car;heavytruck;lighttruck;microbus;midtruck;minibus;threewheeler;utility

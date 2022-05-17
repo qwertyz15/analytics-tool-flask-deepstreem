@@ -1,0 +1,14 @@
+[property]
+enable=1
+config-width=1920
+config-height=1080
+display-font-size=20
+
+[line-crossing-stream-0]
+enable=1
+line-crossing-Exit=
+line-crossing-Entry=
+class-id=2;3;5;7
+mode=balanced
+extend=0
+enable=1
