@@ -63,17 +63,21 @@
             </div>
             <!-- <button class="goBackBtn" onclick="location.href='http://localhost:5000/';">Go Back</button> -->
             <div class="btn">
+                <div><button id="undo">undo</button></div>
+                <div><button id="redo">redo</button></div>
+                <div><button id="clear">clear</button></div>
                 <div>
                     <!-- <form action="/analyze/%22{{videoClicked}}%22" method="post"> -->
                     <!-- <form method="post"></form> -->
-                        <button id="applyButton" class="applyBtn"  type="submit" name="submit_button"
-                            value="analyze">Apply</button>
+                    <button id="applyButton" class="applyBtn" type="submit" name="submit_button"
+                        value="analyze">Apply</button>
                     <!-- </form> -->
                 </div>
                 <div>
                     <button class="goBackBtn" onclick="location.href='/';" type="submit" name="submit_button"
                         value="goback">Go Back</button>
                 </div>
+
 
                 <!-- <input type="submit" name="submit_button" value="Do Something">
                 <input type="submit" name="submit_button" value="Do Something Else"> -->
@@ -82,14 +86,16 @@
         </div>
         <!-- <img src="../static/frames/first_frame.jpg" alt="no image"> -->
         <img hidden id="scream" src="../static/frames/{{image_path}}" alt="The Scream">
-        <button id="undo">undo</button>
+        <!-- <button id="undo">undo</button>
         <button id="redo">redo</button>
-        <button id="clear">clear</button>
+        <button id="clear">clear</button> -->
         <br>
-    
+
         <canvas id="myCanvas" style="border:1px solid #d3d3d3;">
             Your browser does not support the HTML5 canvas tag.
         </canvas>
+
+
     </div>
 </body>
 <script src="../static/js/firstFrame1.js"></script>

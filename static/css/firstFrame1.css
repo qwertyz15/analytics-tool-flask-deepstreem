@@ -40,6 +40,7 @@
     
     
 }
+
 canvas{
     border: 1px solid black;
     margin: 0;
@@ -79,9 +80,8 @@ canvas{
     display: flex;
 }
 
-.applyBtn,
-.goBackBtn {
-    background-color: gray;
+.applyBtn,.goBackBtn, #undo, #redo, #clear {
+    background-color: rgb(0, 0, 0);
     color: white;
     width: 100px;
     height: 35px;

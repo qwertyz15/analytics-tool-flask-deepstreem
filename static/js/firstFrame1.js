@@ -1,23 +1,14 @@
-// const videoFile = document.getElementById("videoId").innerHTML;
-// const Entry_Line_span = document.getElementById("Entry-Line-span").innerHTML;
-
-// if (videoFile) {
-//     // let videoFilez = {"firstName":"John", "lastName":"Doe"}
-//     console.log("Video file name: ", videoFile);
-//     console.log("Entry-Line: ", Entry_Line_span);
-//     console.log(typeof(videoFile));
-//     let obj = {
-//         'key1': Entry_Line_span,'key2': videoFile,
-//     };
-//     console.log(obj)
-
-//     console.log(JSON.stringify(obj))
-//     const request = new XMLHttpRequest();
-//     request.open('POST', `/analyze/${JSON.stringify(obj)}`);
-//     // request.open('POST', `/analyze`);
-//     request.send();
-
-// }
+// if (document.addEventListener) {
+//     document.addEventListener('contextmenu', function(e) {
+//       alert("You've tried to open context menu"); //here you draw your own menu
+//       e.preventDefault();
+//     }, false);
+//   } else {
+//     document.attachEvent('oncontextmenu', function() {
+//       alert("You've tried to open context menu");
+//       window.event.returnValue = false;
+//     });
+//   }
 
 document.addEventListener('keydown', function(event)
 {

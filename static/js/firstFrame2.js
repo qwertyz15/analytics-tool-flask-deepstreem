@@ -1,17 +1,17 @@
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext('2d');
 var img = document.getElementById("scream");
-canvas.width = img.width
-canvas.height = img.height
-context.drawImage(img, 0, 0);
+canvas.width = img.width / 2;
+canvas.height = img.height / 2;
+context.drawImage(img, 0, 0, img.width / 2, img.height / 2);
 
 window.onload = function () {
     // var canvas = document.getElementById("myCanvas");
     var context = canvas.getContext('2d');
     var img = document.getElementById("scream");
-    canvas.width = img.width
-    canvas.height = img.height
-    context.drawImage(img, 0, 0);
+    canvas.width = img.width / 2;
+    canvas.height = img.height / 2;
+    context.drawImage(img, 0, 0, img.width / 2, img.height / 2);
 }
 
 var dFlag = false, hitFlag = false; //(dFlag) to check if mouse is currently dragging; (hitFlag) to check if mouse hits a shape
@@ -138,13 +138,13 @@ function drawCircle(position) {
 }
 
 function domCoordinates(position) {
-    let sx = dragStartLoc.x.toString();
-    let sy = dragStartLoc.y.toString();
-    let ex = position.x.toString();
-    let ey = position.y.toString();
+    let sx = (dragStartLoc.x * 2).toString();
+    let sy = (dragStartLoc.y * 2).toString();
+    let ex = (position.x * 2).toString();
+    let ey = (position.y * 2).toString();
     let v = sx+';'+sy+';'+ex+';'+ey+';';
-    document.getElementById("x-value").innerHTML = Math.floor(ex);
-    document.getElementById("y-value").innerHTML = Math.floor(ey);
+    document.getElementById("x-value").innerHTML = Math.floor(position.x) * 2;
+    document.getElementById("y-value").innerHTML = Math.floor(position.y) * 2;
     // console.log(v);
     if(checkButton() === 'Entry-Line') {
         // console.log("Entry-Line");
@@ -224,8 +224,8 @@ function endDraw(event) {
     drawBg();
     endPoints.push(position);
     // console.log(position);
-    document.getElementById('x1-value').innerHTML = Math.floor(position.x);
-    document.getElementById('y1-value').innerHTML = Math.floor(position.y);
+    document.getElementById('x1-value').innerHTML = Math.floor(position.x) * 2;
+    document.getElementById('y1-value').innerHTML = Math.floor(position.y) * 2;
 
 
 }
@@ -243,7 +243,16 @@ clearElement.addEventListener("click", clear);
 function clear(){
     // delete everything
     context.clearRect(0,0,canvas.width,canvas.height);
-    context.drawImage(img, 0, 0);
+    // context.drawImage(img, 0, 0);
+    context.drawImage(img, 0, 0, img.width / 2, img.height / 2);
+
+    document.getElementById("x-value").innerHTML = "-";
+    document.getElementById("y-value").innerHTML = "-";
+    document.getElementById("Entry-Line-span").innerHTML = '- -';
+    document.getElementById("Entry-Dir-span").innerHTML = '- -';
+    document.getElementById("Exit-Line-span").innerHTML = '- -';
+    document.getElementById("Exit-Dir-span").innerHTML = '- -';
+    
     startPoints = [];
     endPoints = [];
 }
@@ -252,7 +261,8 @@ function clear(){
 function clearAll(){
     // delete everything
     context.clearRect(0,0,canvas.width,canvas.height);
-    context.drawImage(img, 0, 0);
+    context.drawImage(img, 0, 0, img.width / 2, img.height / 2);
+    // context.drawImage(img, 0, 0);
     // startPoints = [];
     // endPoints = [];
 }
