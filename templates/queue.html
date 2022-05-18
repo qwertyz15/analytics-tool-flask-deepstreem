@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>upload-video</title>
+
+    <head>
+        <link rel="stylesheet" href="../static/css/index.css">
+    </head>
+
+<body>
+
+    <div class="main-container">
+        <div class="flash-message">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{category}}" role="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>{{message}}</strong>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+        <div class="container">
+            <div class="upload-container">
+                <h2 class="uploadHeader">Upload a Video</h2>
+                <form method='POST' enctype='multipart/form-data'>
+                    {{form.hidden_tag()}}
+                    {{form.file()}}
+                    {{form.submit()}}
+                </form>
+            </div>
+            <div class="list-container">
+                <h2>Uploaded Videos</h2>
+                <ol id="parent-list">
+                    {%for file in filelist%}
+                    <!-- <li onclick="location.href='http://localhost:5000/firstFrame/%22{{file}}%22';" id={{file}}>{{file}}</li> -->
+                    <li onclick="location.href='/firstFrameCam/%22{{file}}%22';" id={{file}}>{{file}}</li>
+                    {%endfor%}
+                </ol>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="static/js/queue.js"></script>
+
+</html>

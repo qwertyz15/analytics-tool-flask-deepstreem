@@ -4,6 +4,7 @@ var img = document.getElementById("scream");
 canvas.width = img.width / 2;
 canvas.height = img.height / 2;
 context.drawImage(img, 0, 0, img.width / 2, img.height / 2);
+// document.getElementById("imgsize").innerHTML = img.width.toString + ' X ' + img.height.toString;
 
 window.onload = function () {
     // var canvas = document.getElementById("myCanvas");
@@ -319,7 +320,7 @@ document.onkeyup = function(e) {
   if (e.ctrlKey && e.which == 89) {
     Redo();
   } 
-  else if (e.ctrlKey && e.which == 88) {
+  else if (e.ctrlKey && e.which == 90) {
     Undo();
     // alert("Ctrl + X shortcut combination was pressed");
   } 
