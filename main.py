@@ -230,7 +230,7 @@ def analyzeCam(points):
 
     # source = f"file://{os.getcwd()}/static/files/{vFile}"
     source = sum
-    survey = "/media/sigmind/watchcam-data/survey_video_extract_flask"
+    survey = "/media/sigmind/watchcam-data/survey_video_extract_flask_2"
     # dest = f"/media/sigmind/watchcam-data/all_high_way_concatenated_mp4/Location_Flask/Cam1/{vFile}"
 
     # shutil.copyfile(source, dest)
