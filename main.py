@@ -5,6 +5,8 @@ import json
 import time
 import requests
 import glob
+import os.path
+from os import path
 from flask import Flask, render_template, flash, url_for, redirect, request
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
@@ -65,6 +67,8 @@ def queue():
             filelist= [filez + '-' + os.path.basename(d) for filez in os.listdir(d) if os.path.isdir(os.path.join(d,filez))]
             allfiles.append(filelist)
     allfiles = list(flatten(allfiles))
+    # allfiles.sort()
+    allfiles.sort(key = lambda x: (x.split('-')[1], x.split('-')[0]))
     # print(allfiles)
     if form.validate_on_submit():
         file = form.file.data # First grab the file
@@ -108,6 +112,17 @@ def firstFrame(videoClicked):
 
 @app.route('/firstFrameCam/<string:videoClicked>', methods=["GET","POST"])
 def firstFramCam(videoClicked):
+
+    def getFirstFrame(videofile):
+        vidcap = cv2.VideoCapture(videofile)
+        success, image = vidcap.read()
+        if success:
+            image_name = videoClicked + "_first_frame.jpg"
+            save_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/', 'frames/', image_name)
+            print(save_path)
+            cv2.imwrite(save_path, image)  # save frame as JPEG file
+        return image_name
+
     videoClicked = json.loads(videoClicked)
     # print('##########################')
     # print(videoClicked)
@@ -121,24 +136,22 @@ def firstFramCam(videoClicked):
     # print(video_dir)
     filelist= [file for file in os.listdir(video_dir) if file.endswith(".mp4")]
     # print(filelist)
-    video_path = os.path.join(video_dir, filelist[0])
-    # print(video_path)
-    # video_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],videoClicked)
-    def getFirstFrame(videofile):
-        vidcap = cv2.VideoCapture(videofile)
-        success, image = vidcap.read()
-        if success:
-            image_name = videoClicked + "_first_frame.jpg"
-            save_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/', 'frames/', image_name)
-            print(save_path)
-            cv2.imwrite(save_path, image)  # save frame as JPEG file
-        return image_name
-    image_name = getFirstFrame(video_path)
-    # print('------------------------')
-    # print(image_name)
-    # print('-------------------------')
-    time.sleep(0.05)
-    return render_template('firstFrameCam.html', image_path = image_name, videoClicked = videoClicked)
+    try:
+        video_path = os.path.join(video_dir, filelist[0])
+    except:
+        video_path = None
+    if(video_path == None):
+        flash(f'NO VIDEOS FOUND in {videoClicked}', 'danger')
+
+    else:
+
+        image_name = getFirstFrame(video_path)
+        # print('------------------------')
+        # print(image_name)
+        # print('-------------------------')
+        time.sleep(0.05)
+        return render_template('firstFrameCam.html', image_path = image_name, videoClicked = videoClicked)
+    return redirect('/queue')
 
 @app.route('/analyze/<string:points>', methods=['GET',"POST"])
 # @app.route('/analyze', methods=['GET',"POST"])
@@ -238,6 +251,8 @@ def analyzeCam(points):
     flash(f'{vFile} started to analyze!', 'analyze')
     for source in absfile:
         cmd = f"cd static/deepstream-imagedata-multistream; python3 deepstream_imagedata-multistream_flask.py {source} {survey}; cd ../..;"
+        os.system(cmd)
+        cmd = f"cd static/python_scripts; python3 vehicle_log_3.py {source}; cd ../..;"
         os.system(cmd)
 
     return redirect('/queue')
