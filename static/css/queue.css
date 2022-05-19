@@ -26,7 +26,7 @@
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
     text-align: center;
-    width: 30%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -42,6 +42,10 @@ li {
     padding: 5px;
     font-size: 1.2rem;
     /* display: inline; */
+}
+#licontents {
+    display: flex;
+    margin: 2px;
 }
 
 li:hover {
@@ -98,3 +102,20 @@ transition: 0.3s;
 color: black;
 }
 
+.downloadbtn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 15px;
+    display: inline;
+  }
+  
+  /* Darker background on mouse-over */
+  .downloadbtn:hover {
+    background-color: RoyalBlue;
+  }
+  /* #downloadspan {
+      text-align: left;
+  } */
