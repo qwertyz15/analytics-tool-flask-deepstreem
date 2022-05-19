@@ -127,16 +127,16 @@ def firstFramCam(videoClicked):
     # print('##########################')
     # print(videoClicked)
     # print('##########################')
-    videosplit = videoClicked.split('-')
-    cam = videosplit[0]
-    loc = videosplit[1]
-    # print(cam, loc)
-    rootpath = '/media/sigmind/watchcam-data/all_high_way_concatenated_mp4'
-    video_dir = os.path.join(rootpath, loc, cam)
-    # print(video_dir)
-    filelist= [file for file in os.listdir(video_dir) if file.endswith(".mp4")]
-    # print(filelist)
     try:
+        videosplit = videoClicked.split('-')
+        cam = videosplit[0]
+        loc = videosplit[1]
+
+    # print(cam, loc)
+        rootpath = '/media/sigmind/watchcam-data/all_high_way_concatenated_mp4'
+        video_dir = os.path.join(rootpath, loc, cam)
+        # print(video_dir)
+        filelist= [file for file in os.listdir(video_dir) if file.endswith(".mp4")]
         video_path = os.path.join(video_dir, filelist[0])
     except:
         video_path = None

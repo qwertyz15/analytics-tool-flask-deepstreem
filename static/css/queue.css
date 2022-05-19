@@ -59,7 +59,9 @@ li:visited {
 .uploadHeader {
     margin-bottom: 30px;
 }
-
+a{
+    text-decoration:none;  
+  }
 .main-container {
     display: flex;
     flex-direction: column;

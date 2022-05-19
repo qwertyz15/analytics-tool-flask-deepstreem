@@ -42,9 +42,14 @@
                 <ol id="parent-list">
                     {%for file in filelist%}
                     <!-- <li onclick="location.href='http://localhost:5000/firstFrame/%22{{file}}%22';" id={{file}}>{{file}}</li> -->
+                    {% set list1 = file.split('-') %}
+                    <!-- The grass is {{ list1[0] }} and the boat is {{ list1[1] }} -->
                     <div id="licontents">
-                        <li onclick="location.href='/firstFrameCam/%22{{file}}%22';" id={{file}}>{{file}} </li>
-                        <button class="downloadbtn"><i class="fa fa-download"></i> Download Report</button>
+                        <li onclick="location.href='/firstFrameCam/%22{{file}}%22';" id="camLoc">
+                            <span>{{file}}</span>
+                        </li>
+                        <button id="downloadbtn" class="downloadbtn"><i class="fa fa-download"></i> Download
+                            Report</button>
                     </div>
 
                     <!-- <br> -->
@@ -55,6 +60,41 @@
     </div>
 
 </body>
+
+<script>
+    function download(fileUrl, fileName) {
+        var a = document.createElement("a");
+        a.href = fileUrl;
+        a.setAttribute("download", fileName);
+        a.click();
+    }
+    var userSelection = document.getElementsByClassName('downloadbtn');
+    var filelist = {{ filelist| safe }};
+
+    for (var i = 0; i < userSelection.length; i++) {
+        (function (index) {
+
+            userSelection[index].addEventListener("click", function () {
+                console.log("Clicked index: " + index);
+                let camLoc = filelist[index];
+                const myArray = camLoc.split("-");
+                console.log(myArray)
+
+                mylog = "../static/Reports/" + myArray[1] + "/" + myArray[0] + ".xlsx"
+                console.log(mylog)
+                // "../static/Reports/Location10/Cam1.xlsx"
+                // "../static/Reports/Location1/Cam4.xlsx"
+
+
+
+                download(mylog, myArray[1] + '-' + myArray[0] + '.xlsx');
+
+
+            })
+        })(i);
+    }
+</script>
+
 <script src="static/js/queue.js"></script>
 
 </html>
