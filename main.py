@@ -212,7 +212,6 @@ def analyzeCam(points):
     # video_path = os.path.join(video_dir, filelist[0])
     # print(video_path)
     absfile = []
-    sum = ''
     for file in os.listdir(video_dir):
         if file.endswith(".mp4"):
             s = 'file://' + video_dir + '/' + file
@@ -242,7 +241,7 @@ def analyzeCam(points):
     a_file.close()
 
     # source = f"file://{os.getcwd()}/static/files/{vFile}"
-    source = sum
+
     survey = "/media/sigmind/watchcam-data/survey_video_extract_flask_2"
     # dest = f"/media/sigmind/watchcam-data/all_high_way_concatenated_mp4/Location_Flask/Cam1/{vFile}"
 
@@ -252,8 +251,8 @@ def analyzeCam(points):
     for source in absfile:
         cmd = f"cd static/deepstream-imagedata-multistream; python3 deepstream_imagedata-multistream_flask.py {source} {survey}; cd ../..;"
         os.system(cmd)
-        cmd = f"cd static/python_scripts; python3 vehicle_log_3.py {source}; cd ../..;"
-        os.system(cmd)
+    cmd = f"cd static/python_scripts; python3 vehicle_log_3.py {video_dir}; cd ../..;"
+    os.system(cmd)
 
     return redirect('/queue')
     # return 'hello'

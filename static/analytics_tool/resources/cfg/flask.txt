@@ -6,8 +6,8 @@ display-font-size=20
 
 [line-crossing-stream-0]
 enable=1
-line-crossing-Exit=508;682;486;624;192;722;796;606;
-line-crossing-Entry=1154;568;1190;658;876;646;1558;566;
+line-crossing-Exit=506;770;548;658;36;742;1034;710;
+line-crossing-Entry=1434;596;1500;684;1052;770;1802;528;
 class-id=2;3;5;7
 mode=balanced
 extend=0
