@@ -4,6 +4,7 @@ var img = document.getElementById("scream");
 canvas.width = img.width / 2;
 canvas.height = img.height / 2;
 context.drawImage(img, 0, 0, img.width / 2, img.height / 2);
+document.getElementById("imgsize").innerHTML = "Size: "+ img.width + ' X ' + img.height;
 // document.getElementById("imgsize").innerHTML = img.width.toString + ' X ' + img.height.toString;
 
 window.onload = function () {
@@ -249,10 +250,20 @@ function clear(){
 
     document.getElementById("x-value").innerHTML = "-";
     document.getElementById("y-value").innerHTML = "-";
-    document.getElementById("Entry-Line-span").innerHTML = '- -';
-    document.getElementById("Entry-Dir-span").innerHTML = '- -';
-    document.getElementById("Exit-Line-span").innerHTML = '- -';
-    document.getElementById("Exit-Dir-span").innerHTML = '- -';
+    document.getElementById("Entry-Line-span").innerHTML = '- , -';
+    document.getElementById("Entry-Dir-span").innerHTML = '- , -';
+    document.getElementById("Exit-Line-span").innerHTML = '- , -';
+    document.getElementById("Exit-Dir-span").innerHTML = '- , -';
+
+    const Entry_Line = document.getElementById("Entry-Line");
+    const Entry_Dir = document.getElementById("Entry-Dir");
+    const Exit_Line = document.getElementById("Exit-Line");
+    const Exit_Dir = document.getElementById("Exit-Dir");
+
+    Entry_Dir.checked = false;
+    Exit_Line.checked = false;
+    Exit_Dir.checked = false;
+    Entry_Line.checked = true;
     
     startPoints = [];
     endPoints = [];

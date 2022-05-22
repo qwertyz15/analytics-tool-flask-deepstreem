@@ -63,6 +63,7 @@
 
 <script>
     function download(fileUrl, fileName) {
+        // console.log("download function called");
         var a = document.createElement("a");
         a.href = fileUrl;
         a.setAttribute("download", fileName);
@@ -80,14 +81,20 @@
                 const myArray = camLoc.split("-");
                 console.log(myArray)
 
+
+
                 mylog = "../static/Reports/" + myArray[1] + "/" + myArray[0] + ".xlsx"
-                console.log(mylog)
+                savelog = myArray[1] + '_' + myArray[0] + ".xlsx"
+
+
+                // console.log(mylog)
                 // "../static/Reports/Location10/Cam1.xlsx"
                 // "../static/Reports/Location1/Cam4.xlsx"
 
+                // console.log(myArray[1] + '_' + myArray[0] + '.xlsx')
 
+                download(mylog, savelog);
 
-                download(mylog, myArray[1] + '-' + myArray[0] + '.xlsx');
 
 
             })

@@ -50,7 +50,7 @@ applyButton.onclick = function (e) {
     const Exit_Line_span = document.getElementById("Exit-Line-span").innerHTML;
     const Exit_Dir_span = document.getElementById("Exit-Dir-span").innerHTML;
 
-    if (Entry_Line_span === ' - - ' || Entry_Dir_span === ' - - ' || Exit_Line_span === ' - - ' || Exit_Dir_span === ' - - ') {
+    if (Entry_Line_span === ' - , - ' || Entry_Dir_span === ' - , - ' || Exit_Line_span === ' - , - ' || Exit_Dir_span === ' - , - ') {
         alert('Please Draw all the Lines and Directions and then click the apply button.')
     }
     else {
