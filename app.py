@@ -9,7 +9,7 @@ import os.path
 from os import path
 from flask import Flask, render_template, flash, url_for, redirect, request
 from flask_wtf import FlaskForm
-from wtforms import FileField, SubmitField
+from wtforms import FileField,MultipleFileField, SubmitField
 from werkzeug.utils import secure_filename
 from wtforms.validators import InputRequired
 from collections import Iterable
@@ -21,7 +21,8 @@ app.config['SECRET_KEY'] = 'supersecretkey'
 app.config['UPLOAD_FOLDER'] = 'static/files'
 
 class UploadFileForm(FlaskForm):
-    file = FileField("File", validators=[InputRequired()])
+    # file = FileField("File", validators=[InputRequired()])
+    file = MultipleFileField('File(s) Upload',validators=[InputRequired()])
     submit = SubmitField("Upload File")
 
 @app.route('/', methods=['GET',"POST"])
@@ -30,19 +31,21 @@ def home():
     form = UploadFileForm()
     filelist= [file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")]
     if form.validate_on_submit():
-        file = form.file.data # First grab the file
+        uploadedFilelist = form.file.data # First grab the file
+        print(uploadedFilelist)
         try:
-            if(secure_filename(file.filename).endswith(".mp4")):
-                save_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],secure_filename(file.filename))
-                file.save(save_path) # Then save the file
-                flash(f'{secure_filename(file.filename)} uploaded successfully!', 'success')
-            else:
-                flash(f'Failed to upload!\nPlease upload a video file.', 'danger')
+            for file in uploadedFilelist:
+                if(secure_filename(file.filename).endswith(".mp4")):
+                    save_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],secure_filename(file.filename))
+                    file.save(save_path) # Then save the file
+                    flash(f'{secure_filename(file.filename)} uploaded successfully!', 'success')
+                else:
+                    flash(f'Failed to upload!\nPlease upload a video file.', 'danger')
         except:
             flash('Upload failed!', 'danger')
             
         # return redirect(url_for('index.html'), form=form, filelist = filelist)
-        return render_template('index.html', form=form, filelist = filelist)
+        return render_template('index.html', form=form, filelist = [file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")])
     return render_template('index.html', form=form, filelist = filelist)
 
 @app.route('/queue', methods=['GET',"POST"])
