@@ -181,6 +181,9 @@ def analyze(points):
     a_file.writelines(list_of_lines)
     a_file.close()
 
+    analysis_dir = '/media/sigmind/watchcam-data/survey_video_extract_flask/static/files/' + vFile[:-4]
+    print(analysis_dir)
+
     source = f"file://{os.getcwd()}/static/files/{vFile}"
     survey = "/media/sigmind/watchcam-data/survey_video_extract_flask"
     # dest = f"/media/sigmind/watchcam-data/all_high_way_concatenated_mp4/Location_Flask/Cam1/{vFile}"
@@ -189,6 +192,10 @@ def analyze(points):
 
     flash(f'{vFile} started to analyze!', 'analyze')
     cmd = f"cd static/deepstream-imagedata-multistream; python3 deepstream_imagedata-multistream_flask.py {source} {survey}; cd ../..;"
+    os.system(cmd)
+
+    analysis_dir = '/media/sigmind/watchcam-data/survey_video_extract_flask/static/files/' + vFile[:-4]
+    cmd = f"cd static/python_scripts; python3 vehicle_log_4.py {analysis_dir}; cd ../..;"
     os.system(cmd)
 
     return redirect('/')

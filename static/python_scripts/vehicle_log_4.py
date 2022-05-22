@@ -18,8 +18,8 @@ def createDF():
     return df
 
 
-# rootpath  = sys.argv[1]
-rootpath = '/media/sigmind/watchcam-data/survey_video_extract_flask/Location24/Cam2/141'
+rootpath  = sys.argv[1]
+# rootpath = '/media/sigmind/watchcam-data/survey_video_extract_flask/Location24/Cam2/141'
 rootdir = os.path.dirname(rootpath)
 rootbase = os.path.basename(rootpath)
 camdir = os.path.dirname(rootdir)
@@ -72,8 +72,8 @@ df.replace(np.nan, 0, inplace=True)
 df.set_index(['Direction'], inplace=True)
 df = df.T
 df.index.names = ['Vehicles']
-# print(df)
-saveFile = f'../Single_Video_Reports/{rootbase}_{cambase}_{locbase}.xlsx'
+print(df)
+saveFile = f'../Single_Video_Reports/{rootbase}.xlsx'
 # df.to_csv('logex.csv')
 df.to_excel(saveFile)
 del df
