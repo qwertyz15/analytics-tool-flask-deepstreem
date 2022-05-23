@@ -18,6 +18,7 @@
     padding: 30px;
     text-align: center;
     width: 70%;
+    /* font-size: 20px; */
     /* overflow: scroll; */
 
 }
@@ -26,7 +27,7 @@
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
     text-align: center;
-    width: 30%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -44,6 +45,11 @@ li {
     /* display: inline; */
 }
 
+#licontents {
+    display: flex;
+    margin: 2px;
+}
+
 li:hover {
     background-color: rgb(185, 185, 181);
 }
@@ -56,6 +62,10 @@ li:visited {
     margin-bottom: 30px;
 }
 
+a {
+    text-decoration: none;
+}
+
 .main-container {
     display: flex;
     flex-direction: column;
@@ -65,36 +75,71 @@ li:visited {
     text-align: center;
     padding: 10px;
 }
+
 .alert-success {
     /* color: green */
     background-color: rgb(35, 148, 35);
 }
+
 .alert-danger {
     background-color: #f44336;
     /* color: red; */
 }
+
 .alert-analyze {
     background-color: #e68c17;
     /* color: red; */
 }
+
 .alert {
     padding: 20px;
     /* background-color: #f44336; */
     color: white;
-    }
+}
 
 .closebtn {
-margin-left: 15px;
-color: white;
-font-weight: bold;
-float: right;
-font-size: 22px;
-line-height: 20px;
-cursor: pointer;
-transition: 0.3s;
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .closebtn:hover {
-color: black;
+    color: black;
 }
 
+.downloadbtn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 15px;
+    display: inline;
+}
+
+/* Darker background on mouse-over */
+.downloadbtn:hover {
+    background-color: RoyalBlue;
+}
+
+/* #downloadspan {
+      text-align: left;
+  } */
+
+.goBackBtn {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    margin-top: 20px;
+    font-weight: bolder;
+    font-size: 15px;
+}

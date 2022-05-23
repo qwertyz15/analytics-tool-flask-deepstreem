@@ -45,8 +45,8 @@ def home():
             flash('Upload failed!', 'danger')
             
         # return redirect(url_for('index.html'), form=form, filelist = filelist)
-        return render_template('index.html', form=form, filelist = [file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")])
-    return render_template('index.html', form=form, filelist = filelist)
+        return render_template('index.html', form=form, filelist=[file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")], apiname=['home'])
+    return render_template('index.html', form=form, filelist=[file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")], apiname=['home'])
 
 @app.route('/queue', methods=['GET',"POST"])
 def queue():
@@ -86,8 +86,8 @@ def queue():
             flash('Upload failed!', 'danger')
             
         # return redirect(url_for('index.html'), form=form, filelist = filelist)
-        return render_template('queue.html', form=form, filelist = allfiles)
-    return render_template('queue.html', form=form, filelist = allfiles)
+        return render_template('queue.html', form=form, filelist=allfiles, apiname=['queue'])
+    return render_template('queue.html', form=form, filelist=allfiles, apiname=['queue'])
 
 @app.route('/firstFrame/<string:videoClicked>', methods=["GET","POST"])
 def firstFrame(videoClicked):

@@ -36,6 +36,10 @@
                     {{form.file()}}
                     {{form.submit()}}
                 </form>
+                <button class="goBackBtn" onclick="location.href='/';" type="submit" name="submit_button"
+                    value="goback">Go to
+                    Home</button>
+
             </div>
             <div class="list-container">
                 <h2>Uploaded Videos</h2>
@@ -71,6 +75,7 @@
     }
     var userSelection = document.getElementsByClassName('downloadbtn');
     var filelist = {{ filelist| safe }};
+
 
     for (var i = 0; i < userSelection.length; i++) {
         (function (index) {

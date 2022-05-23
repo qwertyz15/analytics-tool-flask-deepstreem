@@ -9,6 +9,8 @@
 
     <head>
         <link rel="stylesheet" href="../static/css/index.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 
 <body>
@@ -34,20 +36,80 @@
                     {{form.file()}}
                     {{form.submit()}}
                 </form>
+                <button class="goBackBtn" onclick="location.href='/queue';" type="submit" name="submit_button" value="goback">Go to Queue</button>
             </div>
             <div class="list-container">
                 <h2>Uploaded Videos</h2>
                 <ol id="parent-list">
                     {%for file in filelist%}
                     <!-- <li onclick="location.href='http://localhost:5000/firstFrame/%22{{file}}%22';" id={{file}}>{{file}}</li> -->
-                    <li onclick="location.href='/firstFrame/%22{{file}}%22';" id={{file}}>{{file}}</li>
+                    {% set list1 = file.split('-') %}
+                    <!-- The grass is {{ list1[0] }} and the boat is {{ list1[1] }} -->
+                    <div id="licontents">
+                        <li onclick="location.href='/firstFrame/%22{{file}}%22';" id="camLoc">
+                            <span>{{file}}</span>
+                        </li>
+                        <button id="downloadbtn" class="downloadbtn"><i class="fa fa-download"></i> Download
+                            Report</button>
+                    </div>
+
+                    <!-- <br> -->
                     {%endfor%}
                 </ol>
             </div>
         </div>
     </div>
 
+    
+
 </body>
+
+<script>
+    function download(fileUrl, fileName) {
+        // console.log("download function called");
+        var a = document.createElement("a");
+        a.href = fileUrl;
+        a.setAttribute("download", fileName);
+        a.click();
+    }
+    var userSelection = document.getElementsByClassName('downloadbtn');
+    var filelist = {{ filelist| safe }};
+    var apilist = {{ apiname| safe }};
+    var apiname = apilist[0];
+
+    console.log(apiname);
+
+    for (var i = 0; i < userSelection.length; i++) {
+        (function (index) {
+
+            userSelection[index].addEventListener("click", function () {
+                console.log("Clicked index: " + index);
+                let camLoc = filelist[index];
+                // const myArray = camLoc.split("-");
+                excel_file = camLoc.replace(".mp4", ".xlsx");
+                console.log(excel_file);
+
+
+
+                mylog = "../static/Single_Video_Reports/" + excel_file;
+                // savelog = myArray[1] + '_' + myArray[0] + ".xlsx"
+
+
+                // console.log(mylog)
+                // "../static/Reports/Location10/Cam1.xlsx"
+                // "../static/Reports/Location1/Cam4.xlsx"
+
+                // console.log(myArray[1] + '_' + myArray[0] + '.xlsx')
+
+                download(mylog, excel_file);
+
+
+
+            })
+        })(i);
+    }
+</script>
+
 <script src="static/js/index.js"></script>
 
 </html>
