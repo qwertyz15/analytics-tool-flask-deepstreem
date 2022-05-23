@@ -23,6 +23,7 @@ var fillStyle = document.getElementById("fillColor");
 let pathsry = [];
 let startPoints = [];
 let endPoints = [];
+let typeDraw = [];
 let types;
 let pops = 0;
 
@@ -196,6 +197,8 @@ function startDraw(event) {
     dFlag = true;
     dragStartLoc = getGPS(event);
     startPoints.push(dragStartLoc);
+    if (checkButton() === "Entry-Line" || checkButton() === "Exit-Line") typeDraw.push("Line");
+    else if (checkButton() === "Entry-Dir" || checkButton() === "Exit-Dir") typeDraw.push("Dir");
     // console.log(dragStartLoc);
     saveFrame();
     drawGps();
@@ -208,8 +211,16 @@ function drag(event) {
         drawGps();
         position = getGPS(event);
         // drawCircle(position);
-        if(checkButton() === "Entry-Line" || checkButton() === "Exit-Line") drawLine(position);
-        if(checkButton() === "Entry-Dir" || checkButton() === "Exit-Dir") drawArrow(position);
+        if(checkButton() === "Entry-Line" || checkButton() === "Exit-Line") {
+            // typeDraw.push("Line");
+            drawLine(position);
+            
+        } 
+        if(checkButton() === "Entry-Dir" || checkButton() === "Exit-Dir") {
+            // typeDraw.push("Dir");
+            drawArrow(position);
+        }
+
 
 
     }
@@ -267,6 +278,7 @@ function clear(){
     
     startPoints = [];
     endPoints = [];
+    typeDraw = [];
 }
 
 
@@ -286,7 +298,11 @@ function drawPaths(){
   for (let i = 0; i < startPoints.length - pops; i++) {
     dragStartLoc = startPoints[i];
     position = endPoints[i];
-    drawLine(position);
+    types = typeDraw[i];
+    console.log(types);
+      if (types === "Line") drawLine(position);
+      else if (types === "Dir") drawArrow(position);
+    // drawArrow(position);
   }
 
 }  
