@@ -13,6 +13,7 @@ from wtforms import FileField,MultipleFileField, SubmitField
 from werkzeug.utils import secure_filename
 from wtforms.validators import InputRequired
 from collections import Iterable
+import settings
 
 
 
@@ -63,7 +64,7 @@ def queue():
     allfiles = []
     import os
     
-    rootdir = '/media/sigmind/watchcam-data/all_high_way_concatenated_mp4'
+    rootdir = settings.rootdir
     for file in os.listdir(rootdir):
         d = os.path.join(rootdir, file)
         if os.path.isdir(d):
@@ -136,7 +137,7 @@ def firstFramCam(videoClicked):
         loc = videosplit[1]
 
     # print(cam, loc)
-        rootpath = '/media/sigmind/watchcam-data/all_high_way_concatenated_mp4'
+        rootpath = settings.rootdir
         video_dir = os.path.join(rootpath, loc, cam)
         # print(video_dir)
         filelist= [file for file in os.listdir(video_dir) if file.endswith(".mp4")]
@@ -181,11 +182,11 @@ def analyze(points):
     a_file.writelines(list_of_lines)
     a_file.close()
 
-    analysis_dir = '/media/sigmind/watchcam-data/survey_video_extract_flask/static/files/' + vFile[:-4]
-    print(analysis_dir)
-
     source = f"file://{os.getcwd()}/static/files/{vFile}"
-    survey = "/media/sigmind/watchcam-data/survey_video_extract_flask"
+    survey = settings.survey
+
+    analysis_dir = os.path.join(settings.survey,'static','files', vFile[:-4])
+    print(analysis_dir)
     # dest = f"/media/sigmind/watchcam-data/all_high_way_concatenated_mp4/Location_Flask/Cam1/{vFile}"
 
     # shutil.copyfile(source, dest)
@@ -194,7 +195,8 @@ def analyze(points):
     cmd = f"cd static/deepstream-imagedata-multistream; python3 deepstream_imagedata-multistream_flask.py {source} {survey}; cd ../..;"
     os.system(cmd)
 
-    analysis_dir = '/media/sigmind/watchcam-data/survey_video_extract_flask/static/files/' + vFile[:-4]
+    analysis_dir = os.path.join(settings.survey, 'static', 'files', vFile[:-4])
+    print(analysis_dir)
     cmd = f"cd static/python_scripts; python3 vehicle_log_4.py {analysis_dir}; cd ../..;"
     os.system(cmd)
 
@@ -213,7 +215,7 @@ def analyzeCam(points):
     cam = videosplit[0]
     loc = videosplit[1]
     # print(cam, loc)
-    rootpath = '/media/sigmind/watchcam-data/all_high_way_concatenated_mp4'
+    rootpath = settings.rootdir
     video_dir = os.path.join(rootpath, loc, cam)
     print(video_dir)
     # print(video_dir)
@@ -252,7 +254,7 @@ def analyzeCam(points):
 
     # source = f"file://{os.getcwd()}/static/files/{vFile}"
 
-    survey = "/media/sigmind/watchcam-data/survey_video_extract_flask_2"
+    survey = settings.surveyCameraWise
     # dest = f"/media/sigmind/watchcam-data/all_high_way_concatenated_mp4/Location_Flask/Cam1/{vFile}"
 
     # shutil.copyfile(source, dest)
