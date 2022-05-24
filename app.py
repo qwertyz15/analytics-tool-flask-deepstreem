@@ -45,7 +45,6 @@ def home():
         except:
             flash('Upload failed!', 'danger')
             
-        # return redirect(url_for('index.html'), form=form, filelist = filelist)
         return render_template('index.html', form=form, filelist=[file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")], apiname=['home'])
     return render_template('index.html', form=form, filelist=[file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")], apiname=['home'])
 
@@ -59,8 +58,6 @@ def queue():
          else:        
              yield item
     form = UploadFileForm()
-    # filelist= [file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")]
-    # filelist= [file for file in os.listdir('/media/sigmind/watchcam-data/all_high_way_concatenated_mp4')]
     allfiles = []
     import os
     
@@ -85,17 +82,12 @@ def queue():
                 flash(f'Failed to upload!\nPlease upload a video file.', 'danger')
         except:
             flash('Upload failed!', 'danger')
-            
-        # return redirect(url_for('index.html'), form=form, filelist = filelist)
         return render_template('queue.html', form=form, filelist=allfiles, apiname=['queue'])
     return render_template('queue.html', form=form, filelist=allfiles, apiname=['queue'])
 
 @app.route('/firstFrame/<string:videoClicked>', methods=["GET","POST"])
 def firstFrame(videoClicked):
     videoClicked = json.loads(videoClicked)
-    # print('##########################')
-    # print(videoClicked)
-    # print('##########################')
     video_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],videoClicked)
     def getFirstFrame(videofile):
         vidcap = cv2.VideoCapture(videofile)
@@ -103,16 +95,16 @@ def firstFrame(videoClicked):
         if success:
             image_name = videoClicked + "_first_frame.jpg"
             save_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/', 'frames/', image_name)
-            # print(save_path)
             cv2.imwrite(save_path, image)  # save frame as JPEG file
         return image_name
-    image_name = getFirstFrame(video_path)
-    # print('------------------------')
-    # print(image_name)
-    # print('-------------------------')
-    time.sleep(0.05)
-    return render_template('firstFrame.html', image_path = image_name, videoClicked = videoClicked)
-    # return '<p> first Frame </p>'
+    try:
+        image_name = getFirstFrame(video_path)
+        time.sleep(0.05)
+        return render_template('firstFrame.html', image_path = image_name, videoClicked = videoClicked)
+    except:
+        pass
+
+    return redirect('/')
 
 @app.route('/firstFrameCam/<string:videoClicked>', methods=["GET","POST"])
 def firstFramCam(videoClicked):
@@ -128,18 +120,13 @@ def firstFramCam(videoClicked):
         return image_name
 
     videoClicked = json.loads(videoClicked)
-    # print('##########################')
-    # print(videoClicked)
-    # print('##########################')
     try:
         videosplit = videoClicked.split('-')
         cam = videosplit[0]
         loc = videosplit[1]
 
-    # print(cam, loc)
         rootpath = settings.rootdir
         video_dir = os.path.join(rootpath, loc, cam)
-        # print(video_dir)
         filelist= [file for file in os.listdir(video_dir) if file.endswith(".mp4")]
         video_path = os.path.join(video_dir, filelist[0])
     except:
@@ -150,21 +137,14 @@ def firstFramCam(videoClicked):
     else:
 
         image_name = getFirstFrame(video_path)
-        # print('------------------------')
-        # print(image_name)
-        # print('-------------------------')
         time.sleep(0.05)
         return render_template('firstFrameCam.html', image_path = image_name, videoClicked = videoClicked)
     return redirect('/queue')
 
 @app.route('/analyze/<string:points>', methods=['GET',"POST"])
-# @app.route('/analyze', methods=['GET',"POST"])
 def analyze(points):
     Points = json.loads(points)
-    # print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-    # print(Points)
     vFile = Points['videoFile']
-    # print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
     s1 = Points['Exit_Dir'] + Points['Exit_Line']
     s2 = Points['Entry_Dir'] + Points['Entry_Line']
 
@@ -187,9 +167,6 @@ def analyze(points):
 
     analysis_dir = os.path.join(settings.survey,'static','files', vFile[:-4])
     print(analysis_dir)
-    # dest = f"/media/sigmind/watchcam-data/all_high_way_concatenated_mp4/Location_Flask/Cam1/{vFile}"
-
-    # shutil.copyfile(source, dest)
 
     flash(f'{vFile} started to analyze!', 'analyze')
     multistreamCommand = settings.multistreamCommand
@@ -205,37 +182,21 @@ def analyze(points):
     return redirect('/')
 
 @app.route('/analyzeCam/<string:points>', methods=['GET',"POST"])
-# @app.route('/analyze', methods=['GET',"POST"])
 def analyzeCam(points):
     Points = json.loads(points)
-    # print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$------------')
-    # print(Points)
     vFile = Points['videoFile']
-    # print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-------------')
 
     videosplit = vFile.split('-')
     cam = videosplit[0]
     loc = videosplit[1]
-    # print(cam, loc)
     rootpath = settings.rootdir
     video_dir = os.path.join(rootpath, loc, cam)
     print(video_dir)
-    # print(video_dir)
-    # filelist= [file for file in os.listdir(video_dir) if file.endswith(".mp4")]
-    # # print(filelist)
-    # video_path = os.path.join(video_dir, filelist[0])
-    # print(video_path)
     absfile = []
     for file in os.listdir(video_dir):
         if file.endswith(".mp4"):
             s = 'file://' + video_dir + '/' + file
             absfile.append(s)
-            # sum = sum + " " + s
-
-    # print(os.listdir(video_dir))
-    
-    # print(sum)
-
 
     s1 = Points['Exit_Dir'] + Points['Exit_Line']
     s2 = Points['Entry_Dir'] + Points['Entry_Line']
@@ -254,12 +215,7 @@ def analyzeCam(points):
     a_file.writelines(list_of_lines)
     a_file.close()
 
-    # source = f"file://{os.getcwd()}/static/files/{vFile}"
-
     survey = settings.surveyCameraWise
-    # dest = f"/media/sigmind/watchcam-data/all_high_way_concatenated_mp4/Location_Flask/Cam1/{vFile}"
-
-    # shutil.copyfile(source, dest)
 
     flash(f'{vFile} started to analyze!', 'analyze')
     for source in absfile:
@@ -271,7 +227,6 @@ def analyzeCam(points):
     os.system(cmd)
 
     return redirect('/queue')
-    # return 'hello'
 
 if __name__ == '__main__':
     app.run(debug=True)
