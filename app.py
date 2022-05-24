@@ -19,7 +19,7 @@ import settings
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
-app.config['UPLOAD_FOLDER'] = 'static/files'
+app.config['UPLOAD_FOLDER'] = settings.uploadFolder
 
 class UploadFileForm(FlaskForm):
     # file = FileField("File", validators=[InputRequired()])
@@ -176,9 +176,9 @@ def analyze(points):
     list_of_lines[ex] = 'line-crossing-Exit=' + s1 + '\n'
     list_of_lines[en] = 'line-crossing-Entry=' + s2 + '\n'
 
-    save_cfg = 'static/cfgs/' + vFile + '.txt'
+    configFile = settings.configFile
 
-    a_file = open("static/analytics_tool/resources/cfg/flask.txt", "w")
+    a_file = open(configFile, "w")
     a_file.writelines(list_of_lines)
     a_file.close()
 
@@ -192,12 +192,14 @@ def analyze(points):
     # shutil.copyfile(source, dest)
 
     flash(f'{vFile} started to analyze!', 'analyze')
-    cmd = f"cd static/deepstream-imagedata-multistream; python3 deepstream_imagedata-multistream_flask.py {source} {survey}; cd ../..;"
+    multistreamCommand = settings.multistreamCommand
+    cmd = f"{multistreamCommand} {source} {survey}; cd ../..;"
     os.system(cmd)
 
     analysis_dir = os.path.join(settings.survey, 'static', 'files', vFile[:-4])
     print(analysis_dir)
-    cmd = f"cd static/python_scripts; python3 vehicle_log_4.py {analysis_dir}; cd ../..;"
+    videoWiseReportCommand = settings.videoWiseReportCommand
+    cmd = f"{videoWiseReportCommand} {analysis_dir}; cd ../..;"
     os.system(cmd)
 
     return redirect('/')
@@ -246,9 +248,9 @@ def analyzeCam(points):
     list_of_lines[ex] = 'line-crossing-Exit=' + s1 + '\n'
     list_of_lines[en] = 'line-crossing-Entry=' + s2 + '\n'
 
-    save_cfg = 'static/cfgs/' + vFile + '.txt'
+    configFile = settings.configFile
 
-    a_file = open("static/analytics_tool/resources/cfg/flask.txt", "w")
+    a_file = open(configFile, "w")
     a_file.writelines(list_of_lines)
     a_file.close()
 
@@ -261,9 +263,11 @@ def analyzeCam(points):
 
     flash(f'{vFile} started to analyze!', 'analyze')
     for source in absfile:
-        cmd = f"cd static/deepstream-imagedata-multistream; python3 deepstream_imagedata-multistream_flask.py {source} {survey}; cd ../..;"
+        multistreamCommand = settings.multistreamCommand
+        cmd = f"{multistreamCommand} {source} {survey}; cd ../..;"
         os.system(cmd)
-    cmd = f"cd static/python_scripts; python3 vehicle_log_3.py {video_dir}; cd ../..;"
+    camWiseReportCommand = settings.cameraWiseReportCommand
+    cmd = f"{camWiseReportCommand} {video_dir}; cd ../..;"
     os.system(cmd)
 
     return redirect('/queue')
