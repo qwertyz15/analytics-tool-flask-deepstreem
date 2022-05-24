@@ -31,6 +31,7 @@ class UploadFileForm(FlaskForm):
 def home():
     form = UploadFileForm()
     filelist= [file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")]
+    filelist.sort()
     if form.validate_on_submit():
         uploadedFilelist = form.file.data # First grab the file
         print(uploadedFilelist)
@@ -40,13 +41,16 @@ def home():
                     save_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],secure_filename(file.filename))
                     file.save(save_path) # Then save the file
                     flash(f'{secure_filename(file.filename)} uploaded successfully!', 'success')
+                    filelist = [file for file in os.listdir(
+                        app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")]
+                    filelist.sort()
                 else:
                     flash(f'Failed to upload!\nPlease upload a video file.', 'danger')
         except:
             flash('Upload failed!', 'danger')
             
-        return render_template('index.html', form=form, filelist=[file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")], apiname=['home'])
-    return render_template('index.html', form=form, filelist=[file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")], apiname=['home'])
+        # return render_template('index.html', form=form, filelist=[file for file in os.listdir(app.config['UPLOAD_FOLDER']) if file.endswith(".mp4")], apiname=['home'])
+    return render_template('index.html', form=form, filelist=filelist , apiname=['home'])
 
 @app.route('/queue', methods=['GET',"POST"])
 def queue():
@@ -82,7 +86,7 @@ def queue():
                 flash(f'Failed to upload!\nPlease upload a video file.', 'danger')
         except:
             flash('Upload failed!', 'danger')
-        return render_template('queue.html', form=form, filelist=allfiles, apiname=['queue'])
+        # return render_template('queue.html', form=form, filelist=allfiles, apiname=['queue'])
     return render_template('queue.html', form=form, filelist=allfiles, apiname=['queue'])
 
 @app.route('/firstFrame/<string:videoClicked>', methods=["GET","POST"])
