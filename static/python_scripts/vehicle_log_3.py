@@ -5,6 +5,7 @@ import json
 import sys
 import pandas as pd
 import numpy as np
+import settings
 
 
 def createDF():
@@ -102,6 +103,7 @@ df.replace(np.nan, 0, inplace=True)
 df.set_index(['Time', 'Direction'], inplace=True)
 # print(df)
 saveFile = f'../Reports/{locBase}/{rootbase}.xlsx'
+saveFile = os.path.join(settings.camWiseVideoReports, locBase, rootbase + '.xlsx')
 # df.to_csv('logex.csv')
 df.to_excel(saveFile)
 del df
