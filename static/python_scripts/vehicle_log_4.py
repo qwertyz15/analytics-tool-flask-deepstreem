@@ -7,7 +7,7 @@ import json
 import sys
 import pandas as pd
 import numpy as np
-import settings
+# import settings
 
 
 def createDF():
@@ -75,7 +75,8 @@ df = df.T
 df.index.names = ['Vehicles']
 print(df)
 # saveFile = f'../Single_Video_Reports/{rootbase}.xlsx'
-saveFile = os.path.join(settings.singleVideoReports, rootbase + '.xlsx')
+singleVideoReports = '../Single_Video_Reports'
+saveFile = os.path.join(singleVideoReports, rootbase + '.xlsx')
 # df.to_csv('logex.csv')
 df.to_excel(saveFile)
 del df

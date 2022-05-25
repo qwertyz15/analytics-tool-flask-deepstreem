@@ -2,7 +2,9 @@ static/files
 static/frames
 static/Reports
 static/Single_Video_Reports
+static/Single_Video_Reports
 static/css/indexcssbackup.css
 templates/indexhtmlbackup.html
-__pycache__
+static/analytics_tool/resources/cfg/flask.txt
+/__pycache__
 
