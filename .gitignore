@@ -5,5 +5,7 @@ static/Single_Video_Reports
 static/css/indexcssbackup.css
 templates/indexhtmlbackup.html
 static/analytics_tool/resources/cfg/flask.txt
-/__pycache__
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
 
