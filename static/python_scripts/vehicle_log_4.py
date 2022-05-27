@@ -11,8 +11,8 @@ import numpy as np
 
 
 def createDF():
-    columns = ["Direction", "heavytruck", "lighttruck", "midtruck", "bigbus", "minibus", "microbus",
-               "car", "threewheeler", "utility", "midtruck", "minibus", "motorbike", "bicycle", "undefined"]
+    columns = ["Time", "Direction", "minibus", "midtruck", "heavytruck", "lighttruck", "bigbus",
+               "microbus", "car", "threewheeler", "utility", "motorbike", "bicycle", "undefined"]
     directions = ['Entry', 'Exit']
     df = pd.DataFrame(columns=columns)
     df['Direction'] = directions

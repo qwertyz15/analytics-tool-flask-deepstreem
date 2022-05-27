@@ -23,7 +23,8 @@ def createDF():
         dirs.append("Entry")
         dirs.append("Exit")
 
-    columns  = ["Time", "Direction", "heavytruck", "lighttruck", "midtruck", "bigbus", "minibus", "microbus", "car", "threewheeler", "utility", "midtruck", "minibus", "motorbike", "bicycle", "undefined"]
+    columns = ["Time", "Direction", "minibus", "midtruck", "heavytruck", "lighttruck", "bigbus",
+               "microbus", "car", "threewheeler", "utility", "motorbike", "bicycle", "undefined"]
 
     df = pd.DataFrame(index = idxs, columns = columns)
     df['Time'] = times
